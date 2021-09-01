@@ -1,3 +1,7 @@
+# Managing React State By Cory House
+
+The starter project code is described below and comes from the Pluralsight course Managing React State by Cory House. The initial commit reflects the code produced by the end of the course, any further commits are attempts to complete the recommended exercises.
+
 ## Quick Start
 
 Run the following commands:
