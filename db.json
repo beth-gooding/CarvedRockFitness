@@ -44,7 +44,7 @@
       "name": "Big Bag",
       "price": 110.99,
       "skus": [
-        {"sku": 40, "size": "One Size"}
+        { "sku": "40", "size": "One Size" }
       ],
       "description": "A bag big enough to bring the kitchen sink."
     },
@@ -55,7 +55,7 @@
       "name": "Climbing Bag",
       "price": 147.99,
       "skus": [
-        {"sku": 50}
+        {"sku": "50", "size": "One Size"}
       ],
       "description": "This bag will let you climb to the top of every obstacle."
     }
