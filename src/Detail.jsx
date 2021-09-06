@@ -21,15 +21,15 @@ export default function Detail() {
       <h1>{product.name}</h1>
       <p>{product.description}</p>
       <p id="price">${product.price}</p>
-
-      <select id="size" value={sku} onChange={(e) => setSku(e.target.value)}>
+      
+      <><select id="size" value={sku} onChange={(e) => setSku(e.target.value)}>
         <option value="">What size?</option>
         {product.skus.map((s) => (
           <option key={s.sku} value={s.sku}>
             {s.size}
           </option>
         ))}
-      </select>
+      </select> 
 
       <p>
         <button
@@ -43,6 +43,7 @@ export default function Detail() {
           Add to cart
         </button>
       </p>
+      </>
       <img src={`/images/${product.image}`} alt={product.category} />
     </div>
   );
