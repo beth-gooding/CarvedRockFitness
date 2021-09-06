@@ -41,7 +41,7 @@ export default function Products() {
   // filters section only relevant for shoes at the moment, could be relevant for further products though
   // products section relevant for all products
   return (
-    <>{category === "shoes" ?
+    <>{category === "shoes" ? <>
       <section id="filters">
         <label htmlFor="size">Filter by Size:</label>{" "}
         <select
@@ -56,10 +56,13 @@ export default function Products() {
         </select>
         {size && <h2>Found {filteredProducts.length} items</h2>}
       </section>
-      : null}
+      
       <section id="products">
         {filteredProducts.map(renderProduct)}
       </section>
+
      </>
+     : 
+     <section id="products">{products.map(renderProduct)}</section>}</>
   );
 }
