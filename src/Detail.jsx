@@ -11,6 +11,7 @@ export default function Detail() {
   const navigate = useNavigate();
   const [sku, setSku] = useState("");
   const { data: product, loading, error } = useFetch(`products/${id}`);
+  const { category } = useParams();
 
   if (loading) return <Spinner />;
   if (!product) return <PageNotFound />;
@@ -21,15 +22,15 @@ export default function Detail() {
       <h1>{product.name}</h1>
       <p>{product.description}</p>
       <p id="price">${product.price}</p>
-
-      <select id="size" value={sku} onChange={(e) => setSku(e.target.value)}>
+      { category === "shoes" ? 
+      <><select id="size" value={sku} onChange={(e) => setSku(e.target.value)}>
         <option value="">What size?</option>
         {product.skus.map((s) => (
           <option key={s.sku} value={s.sku}>
             {s.size}
           </option>
         ))}
-      </select>
+      </select> 
 
       <p>
         <button
@@ -43,6 +44,18 @@ export default function Detail() {
           Add to cart
         </button>
       </p>
+      </>
+:  <p>
+<button
+  className="btn btn-primary"
+  onClick={() => {
+    dispatch({ type: "add", id, sku });
+    navigate("/cart");
+  }}
+>
+  Add to cart
+</button>
+</p>}
       <img src={`/images/${product.image}`} alt={product.category} />
     </div>
   );
