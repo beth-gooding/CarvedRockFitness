@@ -28,7 +28,7 @@ export default function Products() {
   }
 
   // only relevant to shoes
-  const filteredProducts = size
+  const filteredProducts = (size && typeof parseInt(products[0].size) === Number)
     ? products.filter((p) => p.skus.find((s) => s.size === parseInt(size)))
     : products;
 
@@ -55,14 +55,14 @@ export default function Products() {
           <option value="9">9</option>
         </select>
         {size && <h2>Found {filteredProducts.length} items</h2>}
-      </section>
+      </section> </> : null }
       
       <section id="products">
         {filteredProducts.map(renderProduct)}
       </section>
+      </>
 
-     </>
-     : 
-     <section id="products">{products.map(renderProduct)}</section>}</>
+    
+     
   );
 }
