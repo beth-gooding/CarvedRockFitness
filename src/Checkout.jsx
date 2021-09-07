@@ -73,7 +73,8 @@ export default function Checkout() {
 
   return (
     <>
-      <h1>Shipping Info</h1>
+      <h1>Checkout</h1>
+      <h2>Shipping Info</h2>
       {!isValid && status === STATUS.SUBMITTED && (
         <div role="alert">
           <p>Please fix the following errors:</p>
@@ -120,7 +121,14 @@ export default function Checkout() {
             {(touched.country || status === STATUS.SUBMITTED) && errors.country}
           </p>
         </div>
-
+        <h2>Billing Info</h2>
+        <div>
+            Add in billing info inputs
+        </div> 
+        <h2>Payment Info</h2>
+        <div>
+          Add in payment info inputs
+        </div>
         <div>
           <input
             type="submit"
