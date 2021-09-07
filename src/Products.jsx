@@ -28,7 +28,7 @@ export default function Products() {
   }
 
   // only relevant to shoes
-  const filteredProducts = (size && category === "shoes")
+  const filteredProducts = (size && typeof parseInt(products[0].size) === Number)
     ? products.filter((p) => p.skus.find((s) => s.size === parseInt(size)))
     : products;
 
