@@ -121,7 +121,11 @@ export default function Checkout() {
             {(touched.country || status === STATUS.SUBMITTED) && errors.country}
           </p>
         </div>
+
         <h2>Billing Info</h2>
+        <label htmlFor="copyShippingAddress">Copy shipping address?</label>
+        <input id="copyShippingAddress" type="checkbox" ></input>
+
         <div>
             Add in billing info inputs
         </div> 
