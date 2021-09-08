@@ -67,10 +67,6 @@ export default function Checkout() {
     return result;
   }
 
-  function handleCheckboxChange(e) {
-    setCopySelected((prevCopySelected) => !prevCopySelected);
-  }
-
   if (saveError) throw saveError;
   if (status === STATUS.COMPLETED) {
     return <h1>Thanks for shopping!</h1>;
@@ -131,12 +127,14 @@ export default function Checkout() {
         <label htmlFor="copyShippingAddress">Copy shipping address?</label>
         <input id="copyShippingAddress" 
                type="checkbox" 
-               onChange={handleCheckboxChange}
+               onChange={() => {setCopySelected((prevCopySelected) => !prevCopySelected);}}
                isSelected={copySelected}
                />
 
         <div>
-            Add in billing info inputs
+            <label htmlFor="billingCity">City:</label>
+            <br/>
+            <input id="billingCity" type="text" value={copySelected ? address.city : ""}/>
         </div> 
         <h2>Payment Info</h2>
         <div>
