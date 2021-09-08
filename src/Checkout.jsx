@@ -148,7 +148,7 @@ export default function Checkout() {
         <input id="copyShippingAddress" 
                type="checkbox" 
                onChange={() => {setCopySelected((prevCopySelected) => !prevCopySelected);}}
-               isSelected={copySelected}
+               checked={copySelected}
                />
 
         <div>
