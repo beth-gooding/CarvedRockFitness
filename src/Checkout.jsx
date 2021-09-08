@@ -15,9 +15,15 @@ const emptyAddress = {
   country: "",
 };
 
+const emptyBillingAddress = {
+  billingCity: "",
+  billingCountry: ""
+};
+
 export default function Checkout() {
   const { dispatch } = useCart();
   const [address, setAddress] = useState(emptyAddress);
+  const [billingAddress, setBillingAddress] = useState(emptyBillingAddress);
   const [status, setStatus] = useState(STATUS.IDLE);
   const [saveError, setSaveError] = useState(null);
   const [touched, setTouched] = useState({});
@@ -29,12 +35,21 @@ export default function Checkout() {
 
   function handleChange(e) {
     e.persist(); // persist the event
-    setAddress((curAddress) => {
-      return {
-        ...curAddress,
-        [e.target.id]: e.target.value,
-      };
-    });
+    if (!copySelected) {
+      setAddress((curAddress) => {
+        return {
+          ...curAddress,
+          [e.target.id]: e.target.value,
+        };
+      });
+    } else {
+      setBillingAddress((curAddress) => {
+        return {
+          ...curAddress,
+          [e.target.id]: e.target.value,
+        };
+      })
+    }
   }
 
   function handleBlur(event) {
@@ -134,7 +149,12 @@ export default function Checkout() {
         <div>
             <label htmlFor="billingCity">City:</label>
             <br/>
-            <input id="billingCity" type="text" value={copySelected ? address.city : ""}/>
+            <input id="billingCity" 
+                   type="text" 
+                   value={copySelected ? address.city : billingAddress.city}
+                   onChange={handleChange}
+                   onBlur={handleBlur}
+                   />
         </div> 
         <h2>Payment Info</h2>
         <div>
