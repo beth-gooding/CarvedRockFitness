@@ -21,6 +21,7 @@ export default function Checkout() {
   const [status, setStatus] = useState(STATUS.IDLE);
   const [saveError, setSaveError] = useState(null);
   const [touched, setTouched] = useState({});
+  const [copySelected, setCopySelected] = useState(false);
 
   // Derived state
   const errors = getErrors(address);
@@ -64,6 +65,10 @@ export default function Checkout() {
     if (!address.city) result.city = "City is required";
     if (!address.country) result.country = "Country is required";
     return result;
+  }
+
+  function handleCheckboxChange(e) {
+    setCopySelected((prevCopySelected) => !prevCopySelected);
   }
 
   if (saveError) throw saveError;
@@ -124,7 +129,11 @@ export default function Checkout() {
 
         <h2>Billing Info</h2>
         <label htmlFor="copyShippingAddress">Copy shipping address?</label>
-        <input id="copyShippingAddress" type="checkbox" ></input>
+        <input id="copyShippingAddress" 
+               type="checkbox" 
+               onChange={handleCheckboxChange}
+               isSelected={copySelected}
+               />
 
         <div>
             Add in billing info inputs
