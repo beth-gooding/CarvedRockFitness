@@ -35,21 +35,26 @@ export default function Checkout() {
 
   function handleChange(e) {
     e.persist(); // persist the event
-    if (!copySelected) {
+    
       setAddress((curAddress) => {
         return {
           ...curAddress,
           [e.target.id]: e.target.value,
         };
       });
-    } else {
+
+  }
+
+  function handleBillingChange(e) {
+    e.persist();
+
       setBillingAddress((curAddress) => {
         return {
           ...curAddress,
           [e.target.id]: e.target.value,
         };
       })
-    }
+    
   }
 
   function handleBlur(event) {
@@ -152,7 +157,7 @@ export default function Checkout() {
             <input id="billingCity" 
                    type="text" 
                    value={copySelected ? address.city : billingAddress.city}
-                   onChange={handleChange}
+                   onChange={handleBillingChange}
                    onBlur={handleBlur}
                    />
         </div> 
