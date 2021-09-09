@@ -52,7 +52,7 @@ export default function Checkout() {
 
   function handleChange(e) {
     e.persist(); // persist the event
-      checkoutDispatch({ type: "updateGeneralAddress", [e.target.id]: e.target.value});
+      checkoutDispatch({ type: "updateGeneralAddress", city: "New City"});
       // setAddress((curAddress) => {
       //   return {
       //     ...curAddress,

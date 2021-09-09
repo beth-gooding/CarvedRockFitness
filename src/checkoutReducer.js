@@ -6,9 +6,9 @@ export default function checkoutReducer(state, action) {
             return {...state, billingAddress: {billingCity: city, billingCountry: country}};
         }
         case "updateGeneralAddress":
-            const { city, country } = action;
+            const { city } = action;
             console.log("Shipping addresses is being updated");
-            return {...state, shippingAddress: {city: city, country: country}};
+            return {...state, shippingAddress: {...state.shippingAddress, city: city}};
         case "updateBillingAddress":
             console.log("The billing address is being updated");
             return state;
