@@ -21,7 +21,7 @@ const initialAddresses = {
     billingCity: "",
     billingCountry: ""
   }
-}
+};
 
 export default function Checkout() {
   const { cartDispatch } = useCart();
@@ -38,38 +38,39 @@ export default function Checkout() {
 
   useEffect(() => {
     if (copySelected) {
-        setBillingAddress((curAddress) => {
-          return {
-            ...curAddress,
-          billingCity: shippingAddress.city,
-          billingCountry: shippingAddress.country,
-        }
-      });
+        checkoutDispatch({ type: "updateBillingAddress"})
+      //   setBillingAddress((curAddress) => {
+      //     return {
+      //       ...curAddress,
+      //     billingCity: shippingAddress.city,
+      //     billingCountry: shippingAddress.country,
+      //   }
+      // });
       }
     
   }, [copySelected, shippingAddress.city, shippingAddress.country])
 
   function handleChange(e) {
     e.persist(); // persist the event
-    
-      setAddress((curAddress) => {
-        return {
-          ...curAddress,
-          [e.target.id]: e.target.value,
-        };
-      });
+      checkoutDispatch({ type: "updateGeneralAddress"});
+      // setAddress((curAddress) => {
+      //   return {
+      //     ...curAddress,
+      //     [e.target.id]: e.target.value,
+      //   };
+      // });
 
   }
 
   function handleBillingChange(e) {
     e.persist();
-
-      setBillingAddress((curAddress) => {
-        return {
-          ...curAddress,
-          [e.target.id]: e.target.value,
-        };
-      })
+      checkoutDispatch({ type: "updateBillingAddress" });
+      // setBillingAddress((curAddress) => {
+      //   return {
+      //     ...curAddress,
+      //     [e.target.id]: e.target.value,
+      //   };
+      // })
     
   }
 
