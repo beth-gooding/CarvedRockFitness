@@ -38,7 +38,7 @@ export default function Checkout() {
 
   useEffect(() => {
     if (copySelected) {
-        checkoutDispatch({ type: "updateBillingAddress"})
+        checkoutDispatch({ type: "updateBillingAddress", city: shippingAddress.city, country: shippingAddress.country})
       //   setBillingAddress((curAddress) => {
       //     return {
       //       ...curAddress,
@@ -52,7 +52,7 @@ export default function Checkout() {
 
   function handleChange(e) {
     e.persist(); // persist the event
-      checkoutDispatch({ type: "updateGeneralAddress"});
+      checkoutDispatch({ type: "updateGeneralAddress", [e.target.id]: e.target.value});
       // setAddress((curAddress) => {
       //   return {
       //     ...curAddress,
