@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { saveShippingAddress } from "./services/shippingService";
 import { useCart } from "./cartContext";
 
@@ -32,6 +32,19 @@ export default function Checkout() {
   // Derived state
   const errors = getErrors(address);
   const isValid = Object.keys(errors).length === 0;
+
+  useEffect(() => {
+    if (copySelected) {
+        setBillingAddress((curAddress) => {
+          return {
+            ...curAddress,
+          billingCity: address.city,
+          billingCountry: address.country,
+        }
+      });
+      }
+    
+  }, [copySelected, address.city, address.country])
 
   function handleChange(e) {
     e.persist(); // persist the event
@@ -156,7 +169,7 @@ export default function Checkout() {
             <br/>
             <input id="billingCity" 
                    type="text" 
-                   value={copySelected ? address.city : billingAddress.city}
+                   value={billingAddress.billingCity}
                    onChange={handleBillingChange}
                    onBlur={handleBlur}
                    />
