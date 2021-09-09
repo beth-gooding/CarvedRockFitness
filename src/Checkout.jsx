@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import { saveShippingAddress } from "./services/shippingService";
 import { useCart } from "./cartContext";
 import checkoutReducer from "./checkoutReducer";
@@ -13,11 +13,11 @@ const STATUS = {
 // Declaring outside component to avoid recreation on each render
 
 const initialAddresses = {
-  emptyAddress: {
+  shippingAddress: {
     city: "",
     country: "",
   },
-  emptyBillingAddress: {
+  billingAddress: {
     billingCity: "",
     billingCountry: ""
   }
@@ -26,15 +26,14 @@ const initialAddresses = {
 export default function Checkout() {
   const { cartDispatch } = useCart();
   const [state, checkoutDispatch] = useReducer(checkoutReducer, initialAddresses)
-  const [address, setAddress] = useState(emptyAddress);
-  const [billingAddress, setBillingAddress] = useState(emptyBillingAddress);
+  const { shippingAddress, billingAddress } = state;
   const [status, setStatus] = useState(STATUS.IDLE);
   const [saveError, setSaveError] = useState(null);
   const [touched, setTouched] = useState({});
   const [copySelected, setCopySelected] = useState(false);
 
   // Derived state
-  const errors = getErrors(address);
+  const errors = getErrors(shippingAddress);
   const isValid = Object.keys(errors).length === 0;
 
   useEffect(() => {
@@ -42,13 +41,13 @@ export default function Checkout() {
         setBillingAddress((curAddress) => {
           return {
             ...curAddress,
-          billingCity: address.city,
-          billingCountry: address.country,
+          billingCity: shippingAddress.city,
+          billingCountry: shippingAddress.country,
         }
       });
       }
     
-  }, [copySelected, address.city, address.country])
+  }, [copySelected, shippingAddress.city, shippingAddress.country])
 
   function handleChange(e) {
     e.persist(); // persist the event
@@ -86,7 +85,7 @@ export default function Checkout() {
     setStatus(STATUS.SUBMITTING);
     if (isValid) {
       try {
-        await saveShippingAddress(address);
+        await saveShippingAddress(shippingAddress);
         cartDispatch({ type: "empty" });
         setStatus(STATUS.COMPLETED);
       } catch (e) {
@@ -130,7 +129,7 @@ export default function Checkout() {
           <input
             id="city"
             type="text"
-            value={address.city}
+            value={shippingAddress.city}
             onBlur={handleBlur}
             onChange={handleChange}
           />
@@ -144,7 +143,7 @@ export default function Checkout() {
           <br />
           <select
             id="country"
-            value={address.country}
+            value={shippingAddress.country}
             onBlur={handleBlur}
             onChange={handleChange}
           >
