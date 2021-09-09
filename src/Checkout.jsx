@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { saveShippingAddress } from "./services/shippingService";
 import { useCart } from "./cartContext";
+import checkoutReducer from "./checkoutReducer";
 
 const STATUS = {
   IDLE: "IDLE",
@@ -10,18 +11,21 @@ const STATUS = {
 };
 
 // Declaring outside component to avoid recreation on each render
-const emptyAddress = {
-  city: "",
-  country: "",
-};
 
-const emptyBillingAddress = {
-  billingCity: "",
-  billingCountry: ""
-};
+const initialAddresses = {
+  emptyAddress: {
+    city: "",
+    country: "",
+  },
+  emptyBillingAddress: {
+    billingCity: "",
+    billingCountry: ""
+  }
+}
 
 export default function Checkout() {
-  const { dispatch } = useCart();
+  const { cartDispatch } = useCart();
+  const [state, checkoutDispatch] = useReducer(checkoutReducer, initialAddresses)
   const [address, setAddress] = useState(emptyAddress);
   const [billingAddress, setBillingAddress] = useState(emptyBillingAddress);
   const [status, setStatus] = useState(STATUS.IDLE);
@@ -83,7 +87,7 @@ export default function Checkout() {
     if (isValid) {
       try {
         await saveShippingAddress(address);
-        dispatch({ type: "empty" });
+        cartDispatch({ type: "empty" });
         setStatus(STATUS.COMPLETED);
       } catch (e) {
         setSaveError(e);
