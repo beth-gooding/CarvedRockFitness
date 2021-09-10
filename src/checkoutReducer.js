@@ -1,7 +1,7 @@
 export default function checkoutReducer(state, action) {
     switch (action.type) {
         case "copy": {
-            const { city, country } = action;
+            const { city, country } = state.shippingAddress;
             console.log("Copy the shipping address to billing address");
             return {...state, billingAddress: {billingCity: city, billingCountry: country}};
         }
