@@ -13,58 +13,38 @@ const STATUS = {
 // Declaring outside component to avoid recreation on each render
 
 const initialAddresses = {
-  shippingAddress: {
     city: "",
     country: "",
-  },
-  billingAddress: {
     billingCity: "",
     billingCountry: ""
-  }
 };
 
 export default function Checkout() {
   const { cartDispatch } = useCart();
   const [state, checkoutDispatch] = useReducer(checkoutReducer, initialAddresses)
-  const { shippingAddress, billingAddress } = state;
+  const { city, country, billingCity, billingCountry } = state;
   const [status, setStatus] = useState(STATUS.IDLE);
   const [saveError, setSaveError] = useState(null);
   const [touched, setTouched] = useState({});
   const [copySelected, setCopySelected] = useState(false);
 
   // Derived state
-  const errors = getErrors(shippingAddress);
+  const errors = getErrors({city: city, country: country});
   const isValid = Object.keys(errors).length === 0;
 
   useEffect(() => {
     if (copySelected) {
         checkoutDispatch({ type: "copy"})
       }
-  }, [copySelected, shippingAddress.city, shippingAddress.country])
+  }, [copySelected, city, country])
 
   function handleChange(e) {
     e.persist(); // persist the event
-    switch(e.target.id) {
-      case "city":
-      case "country":
-        checkoutDispatch({ 
-          type: "updateShippingAddress",
-          fieldName: e.target.id, 
-          payload: e.target.value,
-        });
-        break;
-      case "billingCity":
-      case "billingCountry":
-        checkoutDispatch({ 
-          type: "updateBillingAddress",
-          fieldName: e.target.id, 
-          payload: e.target.value,
-        });
-        break;
-      default:
-        throw new Error("AddressType not recognised" + e.target.id);
-    }
-     
+    checkoutDispatch({
+      type: "updateField",
+      fieldName: e.target.id,
+      payload: e.target.value,
+    });
   }
 
   function handleBlur(event) {
@@ -79,6 +59,10 @@ export default function Checkout() {
     setStatus(STATUS.SUBMITTING);
     if (isValid) {
       try {
+        const shippingAddress = {
+          city: city,
+          country: country
+        }
         await saveShippingAddress(shippingAddress);
         cartDispatch({ type: "empty" });
         setStatus(STATUS.COMPLETED);
@@ -123,7 +107,7 @@ export default function Checkout() {
           <input
             id="city"
             type="text"
-            value={shippingAddress.city}
+            value={city}
             onBlur={handleBlur}
             onChange={handleChange}
           />
@@ -137,7 +121,7 @@ export default function Checkout() {
           <br />
           <select
             id="country"
-            value={shippingAddress.country}
+            value={country}
             onBlur={handleBlur}
             onChange={handleChange}
           >
@@ -166,7 +150,7 @@ export default function Checkout() {
             <br/>
             <input id="billingCity" 
                    type="text" 
-                   value={billingAddress.billingCity}
+                   value={billingCity}
                    onChange={handleChange}
                    onBlur={handleBlur}
                    />
