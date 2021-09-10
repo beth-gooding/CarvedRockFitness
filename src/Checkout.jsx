@@ -44,14 +44,11 @@ export default function Checkout() {
 
   function handleChange(e) {
     e.persist(); // persist the event
-      checkoutDispatch({ type: "updateGeneralAddress", city: e.target.value});
-      // setAddress((curAddress) => {
-      //   return {
-      //     ...curAddress,
-      //     [e.target.id]: e.target.value,
-      //   };
-      // });
-
+      checkoutDispatch({ 
+        type: "updateGeneralAddress", 
+        fieldName: e.target.id, 
+        payload: e.target.value
+      });
   }
 
   function handleBillingChange(e) {
