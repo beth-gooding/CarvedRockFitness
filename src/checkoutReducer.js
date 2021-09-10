@@ -8,11 +8,11 @@ export default function checkoutReducer(state, action) {
             const { fieldName, payload } = action;
             return {...state, shippingAddress: {...state.shippingAddress, [fieldName]: payload}};
         }
-        case "updateBillingAddress":{
+        case "updateBillingAddress": {
             const { fieldName, payload } = action;
             return {...state, billingAddress: {...state.billingAddress, [fieldName]: payload}};
         }
-        case "updatingAddress":
+        case "updateAddress":
             const { addressType, fieldName, payload } = action;
             return {...state, [addressType]: {...[state.addressType], [fieldName]: payload}};
         default:

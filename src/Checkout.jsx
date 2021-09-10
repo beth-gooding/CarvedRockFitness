@@ -44,11 +44,29 @@ export default function Checkout() {
 
   function handleChange(e) {
     e.persist(); // persist the event
-      checkoutDispatch({ 
-        type: "updateShippingAddress",
-        fieldName: e.target.id, 
-        payload: e.target.value
-      });
+    switch(e.target.id) {
+      case "city":
+      case "country":
+        checkoutDispatch({ 
+          type: "updateAddress",
+          addressType: "shippingAddress",
+          fieldName: e.target.id, 
+          payload: e.target.value,
+        });
+        break;
+      case "billingCity":
+      case "billingCountry":
+        checkoutDispatch({ 
+          type: "updateAddress",
+          addressType: "billingAddress",
+          fieldName: e.target.id, 
+          payload: e.target.value,
+        });
+        break;
+      default:
+        throw new Error("AddressType not recognised" + e.target.id);
+    }
+     
   }
 
   function handleBillingChange(e) {
