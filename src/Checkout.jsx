@@ -20,7 +20,7 @@ const initialAddresses = {
 };
 
 export default function Checkout() {
-  const { cartDispatch } = useCart();
+  const { dispatch } = useCart();
   const [state, checkoutDispatch] = useReducer(checkoutReducer, initialAddresses)
   const { city, country, billingCity, billingCountry } = state;
   const [status, setStatus] = useState(STATUS.IDLE);
@@ -64,7 +64,7 @@ export default function Checkout() {
           country: country
         }
         await saveShippingAddress(shippingAddress);
-        cartDispatch({ type: "empty" });
+        dispatch({ type: "empty" });
         setStatus(STATUS.COMPLETED);
       } catch (e) {
         setSaveError(e);
@@ -154,7 +154,24 @@ export default function Checkout() {
                    onChange={handleChange}
                    onBlur={handleBlur}
                    />
+        </div>
+        <div>
+          <label htmlFor="billingCountry">Country</label>
+          <br />
+          <select
+            id="billingCountry"
+            value={billingCountry}
+            onBlur={handleBlur}
+            onChange={handleChange}
+          >
+            <option value="">Select Country</option>
+            <option value="China">China</option>
+            <option value="India">India</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="USA">USA</option>
+          </select>
         </div> 
+
         <h2>Payment Info</h2>
         <div>
           Add in payment info inputs
