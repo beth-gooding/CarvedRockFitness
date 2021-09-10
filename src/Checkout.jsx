@@ -16,13 +16,16 @@ const initialAddresses = {
     city: "",
     country: "",
     billingCity: "",
-    billingCountry: ""
+    billingCountry: "",
+    cardNumber: "",
+    expiryDate: "",
+    securityCode: ""
 };
 
 export default function Checkout() {
   const { dispatch } = useCart();
   const [state, checkoutDispatch] = useReducer(checkoutReducer, initialAddresses)
-  const { city, country, billingCity, billingCountry } = state;
+  const { city, country, billingCity, billingCountry, cardNumber, expiryDate, securityCode } = state;
   const [status, setStatus] = useState(STATUS.IDLE);
   const [saveError, setSaveError] = useState(null);
   const [touched, setTouched] = useState({});
@@ -174,7 +177,14 @@ export default function Checkout() {
 
         <h2>Payment Info</h2>
         <div>
-          Add in payment info inputs
+          <label htmlFor="cardNumber">Card Number</label>
+          <br/>
+          <input type="text"
+                 id="cardNumber"
+                 value={cardNumber}
+                 onChange={handleChange}
+                 onBlur={handleBlur}
+                 />
         </div>
         <div>
           <input
