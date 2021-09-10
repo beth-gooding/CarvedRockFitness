@@ -38,16 +38,8 @@ export default function Checkout() {
 
   useEffect(() => {
     if (copySelected) {
-        checkoutDispatch({ type: "copy", city: shippingAddress.city, country: shippingAddress.country})
-      //   setBillingAddress((curAddress) => {
-      //     return {
-      //       ...curAddress,
-      //     billingCity: shippingAddress.city,
-      //     billingCountry: shippingAddress.country,
-      //   }
-      // });
+        checkoutDispatch({ type: "copy"})
       }
-    
   }, [copySelected, shippingAddress.city, shippingAddress.country])
 
   function handleChange(e) {
