@@ -48,8 +48,7 @@ export default function Checkout() {
       case "city":
       case "country":
         checkoutDispatch({ 
-          type: "updateAddress",
-          addressType: "shippingAddress",
+          type: "updateShippingAddress",
           fieldName: e.target.id, 
           payload: e.target.value,
         });
@@ -57,8 +56,7 @@ export default function Checkout() {
       case "billingCity":
       case "billingCountry":
         checkoutDispatch({ 
-          type: "updateAddress",
-          addressType: "billingAddress",
+          type: "updateBillingAddress",
           fieldName: e.target.id, 
           payload: e.target.value,
         });
@@ -67,15 +65,6 @@ export default function Checkout() {
         throw new Error("AddressType not recognised" + e.target.id);
     }
      
-  }
-
-  function handleBillingChange(e) {
-    e.persist();
-      checkoutDispatch({ 
-        type: "updateBillingAddress", 
-        fieldName: e.target.id, 
-        payload: e.target.value 
-      });
   }
 
   function handleBlur(event) {
@@ -178,7 +167,7 @@ export default function Checkout() {
             <input id="billingCity" 
                    type="text" 
                    value={billingAddress.billingCity}
-                   onChange={handleBillingChange}
+                   onChange={handleChange}
                    onBlur={handleBlur}
                    />
         </div> 
