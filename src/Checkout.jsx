@@ -53,14 +53,11 @@ export default function Checkout() {
 
   function handleBillingChange(e) {
     e.persist();
-      checkoutDispatch({ type: "updateBillingAddress" });
-      // setBillingAddress((curAddress) => {
-      //   return {
-      //     ...curAddress,
-      //     [e.target.id]: e.target.value,
-      //   };
-      // })
-    
+      checkoutDispatch({ 
+        type: "updateBillingAddress", 
+        fieldName: e.target.id, 
+        payload: e.target.value 
+      });
   }
 
   function handleBlur(event) {
