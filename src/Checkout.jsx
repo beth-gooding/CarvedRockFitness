@@ -187,6 +187,26 @@ export default function Checkout() {
                  />
         </div>
         <div>
+          <label htmlFor="expiryDate">Expiry Date</label>
+          <br/>
+          <input type="text"
+                 id="expiryDate"
+                 value={expiryDate}
+                 onChange={handleChange}
+                 onBlur={handleBlur}
+                 />
+        </div> 
+        <div>    
+          <label htmlFor="securityCode">Security Code</label>
+          <br/>
+          <input type="text"
+                 id="securityCode"
+                 value={securityCode}
+                 onChange={handleChange}
+                 onBlur={handleBlur}
+                 />
+        </div>
+        <div>
           <input
             type="submit"
             className="btn btn-primary"
