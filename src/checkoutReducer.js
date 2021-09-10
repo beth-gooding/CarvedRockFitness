@@ -4,7 +4,7 @@ export default function checkoutReducer(state, action) {
             const { city, country } = state.shippingAddress;
             return {...state, billingAddress: {billingCity: city, billingCountry: country}};
         }
-        case "updateGeneralAddress":
+        case "updateShippingAddress":
             const { fieldName, payload } = action;
             return {...state, shippingAddress: {...state.shippingAddress, [fieldName]: payload}};
         case "updateBillingAddress":

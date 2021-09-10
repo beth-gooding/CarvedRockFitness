@@ -45,7 +45,7 @@ export default function Checkout() {
   function handleChange(e) {
     e.persist(); // persist the event
       checkoutDispatch({ 
-        type: "updateGeneralAddress", 
+        type: "updateShippingAddress",
         fieldName: e.target.id, 
         payload: e.target.value
       });
